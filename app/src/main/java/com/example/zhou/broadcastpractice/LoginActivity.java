@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/*
+* 添加git测试
+* */
 public class LoginActivity extends BaseActivity {
 
     private EditText accountEdit, passwordEdit;
