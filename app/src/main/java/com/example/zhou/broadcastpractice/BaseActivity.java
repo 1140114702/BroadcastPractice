@@ -28,24 +28,30 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter =new IntentFilter();
+        IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.example.broadcastpractice.FORCE_OFFLINE");
-        receiver =new ForceOfflineReceiver();
-        registerReceiver(receiver,intentFilter);
+        receiver = new ForceOfflineReceiver();
+        registerReceiver(receiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+        receiver = null;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
-        unregisterReceiver(receiver);
     }
 
-    class ForceOfflineReceiver extends BroadcastReceiver{
+    class ForceOfflineReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(final Context context, Intent intent) {
-            AlertDialog.Builder builder=new AlertDialog.Builder(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("注意！");
             builder.setMessage("你已经下线，请重新登录");
             builder.setCancelable(false);
@@ -53,7 +59,7 @@ public class BaseActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     ActivityCollector.finishAll();
-                    Intent intent=new Intent(context,LoginActivity.class);
+                    Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                 }
             });
