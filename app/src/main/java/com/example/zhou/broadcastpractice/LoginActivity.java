@@ -21,7 +21,7 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 String account=accountEdit.getText().toString();
                 String password=passwordEdit.getText().toString();
-                if (account.equals("admin")&&password.equals("123456")) {
+                if (account.equals("1")&&password.equals("1")) {
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
